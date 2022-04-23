@@ -1,0 +1,5 @@
+= Scripture Parser  
+
+The goal of this project is to take shared scripture from the Bible KJV app and format them for sorting and use with liquidoc. 
+
+I'm also interested in gaining experience with test driven development (TDD) in JavaScript with Jest and so I'll be using this project to do that. 
