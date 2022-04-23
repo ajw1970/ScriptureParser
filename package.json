@@ -4,7 +4,7 @@
   "description": "= Scripture Parser",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",
