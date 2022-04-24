@@ -38,7 +38,10 @@ test('We can parse out reference range', () => {
                 "1 Timothy",
                 "2",
                 "3-6",
-                "3 For this is good and acceptable in the sight of God our Saviour;\n4 Who will have all men to be saved, and to come unto the knowledge of the truth.\n5 For there is one God, and one mediator between God and men, the man Christ Jesus;\n6 Who gave himself a ransom for all, to be testified in due time."
+                `3 For this is good and acceptable in the sight of God our Saviour;
+4 Who will have all men to be saved, and to come unto the knowledge of the truth.
+5 For there is one God, and one mediator between God and men, the man Christ Jesus;
+6 Who gave himself a ransom for all, to be testified in due time.`
             ])
     );
 });
