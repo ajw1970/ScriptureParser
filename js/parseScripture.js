@@ -1,5 +1,5 @@
 function parseScripture(quote) {
-    const match = quote.match(/^(.*? \d+:\d+) (.*)$/);
+    const match = quote.match(/^(.*?) (\d+):(\d+) (.*)$/);
     match.shift();
     return match;
 }

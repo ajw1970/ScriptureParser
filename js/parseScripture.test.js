@@ -7,7 +7,9 @@ test('We can parse out reference from verse text for book chapter and verse', ()
     ).toEqual(
         expect.arrayContaining(
             [
-                "Proverbs 12:17",
+                "Proverbs",
+                "12",
+                "17",
                 "He that speaketh truth sheweth forth righteousness: but a false witness deceit."
             ])
     );
@@ -19,7 +21,9 @@ test('We can parse out reference from verse text for numbered book', () => {
     ).toEqual(
         expect.arrayContaining(
             [
-                "2 Kings 8:19",
+                "2 Kings",
+                "8",
+                "19",
                 "Yet the LORD would not destroy Judah for David his servant's sake, as he promised him to give him alway a light, and to his children."
             ])
     );
@@ -31,7 +35,9 @@ test('We can parse out reference range', () => {
     ).toEqual(
         expect.arrayContaining(
             [
-                "1 Timothy 2:3-6",
+                "1 Timothy",
+                "2",
+                "3-6",
                 "3 For this is good and acceptable in the sight of God our Saviour;\n4 Who will have all men to be saved, and to come unto the knowledge of the truth.\n5 For there is one God, and one mediator between God and men, the man Christ Jesus;\n6 Who gave himself a ransom for all, to be testified in due time."
             ])
     );
