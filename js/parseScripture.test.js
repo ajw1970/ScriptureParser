@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const { parseScripture, hasMultipleVerses } = require('./parseScripture');
+const { parseScripture, hasMultipleVerses, formatMultipleVerseQuote } = require('./parseScripture');
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
     expect(
@@ -54,4 +54,14 @@ test('We can identify quotes with multiple verses', () => {
 test('We can identify quotes of a single verse', () => {
     const sample = "This is the verse text.";
     expect(hasMultipleVerses(2, sample)).toBe(false);
+});
+
+test('We can format multiple verse quotes', () => {
+    const sample = "Three 2:4 Four 2:5 Five 2:6 Six";
+    const sampleFormatted = `3 Three
+4 Four
+5 Five
+6 Six`
+
+    expect(formatMultipleVerseQuote(2, 3, sample)).toBe(sampleFormatted);
 })

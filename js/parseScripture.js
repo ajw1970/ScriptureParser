@@ -20,8 +20,7 @@ function parseScripture(quote) {
             //look for more than one verse in this chapter
             const regExp = new RegExp(` ${data.chapter}:(\\d+) `, 'g');
             if (hasMultipleVerses(data.chapter, data.text)) {
-                data.text = data.text.replace(regExp, '\n$1 ');
-                data.text = data.verseRange + ' ' + data.text;
+                data.text = formatMultipleVerseQuote(data.chapter, data.verseRange, data.text);
             }
             break;
     }
@@ -29,10 +28,18 @@ function parseScripture(quote) {
     return Object.values(data);
 }
 
-function hasMultipleVerses(chapter, quoteText) {
-    const regExp = new RegExp(` ${chapter}:(\\d+) `, 'g');
+function getChapterVerseRegExp(chapter) {
+    return new RegExp(` ${chapter}:(\\d+) `, 'g');
+}
 
+function hasMultipleVerses(chapter, quoteText) {
+    const regExp = getChapterVerseRegExp(chapter);
     return regExp.test(quoteText);
 }
 
-module.exports = { parseScripture, hasMultipleVerses };
+function formatMultipleVerseQuote(chapter, firstVerse, quoteText) {
+    const regExp = getChapterVerseRegExp(chapter);
+    return firstVerse + ' ' + quoteText.replace(regExp, '\n$1 ');
+}
+
+module.exports = { parseScripture, hasMultipleVerses, formatMultipleVerseQuote };
