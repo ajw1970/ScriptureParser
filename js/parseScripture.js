@@ -1,19 +1,21 @@
 function parseScripture(quote) {
-    const data = {
+    var data = {
         book: "",
         chapter: "",
         verseRange: "",
         text: quote
     }
 
-    const match = quote.match(/^(.*?) (\d+):(\d+) (.*)$/);
+    const match = quote.match(/^(?<book>.*?) (?<chapter>\d+):(?<verseRange>\d+) (?<text>.*)$/);
     
     switch (match.length) {
         case 5:
-            data.book = match[1];
-            data.chapter = match[2];
-            data.verseRange = match[3];
-            data.text = match[4];
+            data = {
+                book: match.groups.book,
+                chapter: match.groups.chapter,
+                verseRange: match.groups.verseRange,
+                text: match.groups.text
+            }
             break;
     }
     
