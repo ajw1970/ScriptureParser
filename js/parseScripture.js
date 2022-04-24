@@ -6,21 +6,24 @@ function parseScripture(quote) {
         text: quote
     }
 
-    var match = quote.match(/^(?<book>.*?) (?<chapter>\d+):(?<verseRange>\d+) (?<text>.*)$/);
+    var match = quote.match(/^(?<book>.*?) (?<chapter>\d+):(?<firstVerse>\d+) (?<text>.*)$/);
     
     switch (match.length) {
         case 5:
+            const firstVerse = match.groups.firstVerse;
             data = {
                 book: match.groups.book,
                 chapter: match.groups.chapter,
-                verseRange: match.groups.verseRange,
+                verseRange: firstVerse,
                 text: match.groups.text
             }
 
             //look for more than one verse in this chapter
             const regExp = new RegExp(` ${data.chapter}:(\\d+) `, 'g');
             if (hasMultipleVerses(data.chapter, data.text)) {
-                data.text = formatMultipleVerseQuote(data.chapter, data.verseRange, data.text);
+                data.verseRange = getVerseRange(data.chapter, firstVerse, data.text);
+                data.text = formatMultipleVerseQuote(data.chapter, firstVerse, data.text);
+
             }
             break;
     }
@@ -39,7 +42,18 @@ function hasMultipleVerses(chapter, quoteText) {
 
 function formatMultipleVerseQuote(chapter, firstVerse, quoteText) {
     const regExp = getChapterVerseRegExp(chapter);
-    return firstVerse + ' ' + quoteText.replace(regExp, '\n$1 ');
+    return `${firstVerse} ${quoteText.replace(regExp, '\n$1 ')}`;
 }
 
-module.exports = { parseScripture, hasMultipleVerses, formatMultipleVerseQuote };
+function getVerseRange(chapter, firstVerse, quoteText) {
+    const regExp = getChapterVerseRegExp(chapter);
+    const matches = quoteText.match(regExp);
+    if (!matches || matches.length === 1) {
+        return firstVerse;
+    }
+    const lastVerseWithChapter = matches[matches.length - 1];
+    const lastVerse = lastVerseWithChapter.split(':')[1].trim();
+    return `${firstVerse}-${lastVerse}`;
+}
+
+module.exports = { parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange };
