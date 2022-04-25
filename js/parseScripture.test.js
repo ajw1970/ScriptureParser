@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const { parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange } = require('./parseScripture');
+const { parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId } = require('./parseScripture');
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
     expect(
@@ -7,6 +7,7 @@ test('We can parse out reference from verse text for book chapter and verse', ()
     ).toEqual(
         expect.arrayContaining(
             [
+                20.0121,
                 "Proverbs",
                 "12",
                 "17",
@@ -21,6 +22,7 @@ test('We can parse out reference from verse text for numbered book', () => {
     ).toEqual(
         expect.arrayContaining(
             [
+                12.0081,
                 "2 Kings",
                 "8",
                 "19",
@@ -35,6 +37,7 @@ test('We can parse out reference range', () => {
     ).toEqual(
         expect.arrayContaining(
             [
+                54.002,
                 "1 Timothy",
                 "2",
                 "3-6",
@@ -70,3 +73,14 @@ test('We can get verse range from multiple verse quotes', () => {
     const sample = "Three 2:4 Four 2:5 Five 2:6 Six";
     expect(getVerseRange(2, 3, sample)).toBe('3-6');
 });
+
+test('We can get book numbers', () => {
+    expect(getBookNumber("Genesis")).toBe(1);
+    expect(getBookNumber("Revelation")).toBe(66);
+});
+
+test('We can get sort id for quoted verse', () => {
+    expect(getQuoteSortId("1 Timothy", 2, 3)).toBe(54.002);
+    expect(getQuoteSortId("1 Timothy", 2, 12)).toBe(54.0021);
+    expect(getQuoteSortId("Psalms", 119, 176)).toBe(19.1192);
+})
