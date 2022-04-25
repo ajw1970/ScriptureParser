@@ -3,3 +3,22 @@
 The goal of this project is to take shared scripture from the Bible KJV app and format them for sorting and use with liquidoc. 
 
 I'm also interested in gaining experience with test driven development (TDD) in JavaScript with Jest and so I'll be using this project to do that. 
+
+The format I'm expecting to use with liquidoc is a simple csv file with 3 columns: sort-id,front,back
+
+Think of front/back as flash cards. 
+
+front is just the scripture reference such as John 3:16 or Acts 2:42-43
+
+back is the text that goes with the scripture reference.
+
+sort-id is a floating point number with up to 4 decimal places. 
+
+1.001 is for any reference from Genesis 1:1-9
+2.0101 is for any reference from Exodus 10:10-99
+
+the whole number is the book number from 1 (Genesis) to 66 (Revelation). 
+
+The first 3 digits of the fraction are the chapter number divided by 1000. 
+
+The 4th digit is the number of digits of the first verse number minus 1 and then divided by 10000. 
