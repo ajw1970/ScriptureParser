@@ -66,12 +66,25 @@ function getBookNumber(book) {
     return getKjvBooks().indexOf(book) + 1;
 }
 
+/*
+    sort-id is a floating point number with up to 4 decimal places. 
+
+    1.001 is for any reference from Genesis 1:1-9
+    2.0101 is for any reference from Exodus 10:10-99
+
+    the whole number is the book number from 1 (Genesis) to 66 (Revelation). 
+
+    The first 3 digits of the fraction are the chapter number divided by 1000. 
+
+    The 4th digit is the number of digits of the first verse number - 1 
+*/
 function getQuoteSortId(book, chapter, firstVerse) {
-    const bookNumber = getBookNumber(book);
-    var sortId = bookNumber + chapter / 1000;
-    var verseDigits = firstVerse.toString().length;
-    sortId += (verseDigits - 1) / 10000;
-    return Math.round(sortId * 10000) / 10000;
+
+    const bookNumber = getBookNumber(book) * 10000;
+    const chapterNumber = chapter * 10;
+    const verseWeightNumber = firstVerse.toString().length - 1;
+
+    return (bookNumber + chapterNumber + verseWeightNumber) / 10000;
 }
 
 function getKjvBooks() {
