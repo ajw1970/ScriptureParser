@@ -11,7 +11,7 @@
 <body>
     <label for="quotes">Enter Bible KJV Favorites:</label>
     <br>
-    <textarea id="quotes" name="quotes" rows="5" cols="33"></textarea>
+    <textarea id="quotes" name="quotes" rows="25" cols="130"></textarea>
 
     <br>
     <br>
@@ -21,7 +21,7 @@
 
     <label for="formattedQuotes">Formatted Bible KJV Favorites:</label>
     <br>
-    <textarea id="formattedQuotes" name="formattedQuotes" disabled="true" rows="5" cols="33"></textarea>
+    <textarea id="formattedQuotes" name="formattedQuotes" disabled rows="25" cols="130"></textarea>
 
     <script>
         const quotes = document.getElementById('quotes');
@@ -31,6 +31,7 @@
             const message = `quoted text: [${quotes.value}]`;
             console.log(message);
             formattedQuotes.innerText = message;
+            formattedQuotes.removeAttribute('disabled');
         });
     </script>
 </body>
