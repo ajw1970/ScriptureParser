@@ -83,4 +83,13 @@ test('We can get sort id for quoted verse', () => {
     expect(getQuoteSortId("1 Timothy", 2, 3)).toBe(54.002);
     expect(getQuoteSortId("1 Timothy", 2, 12)).toBe(54.0021);
     expect(getQuoteSortId("Psalms", 119, 176)).toBe(19.1192);
-})
+});
+
+test('We can turn a block of text into lines', () => {
+    var text = `Line 1
+Line 2
+Line 3`;
+    var lines = text.split(/\r\n|\n/);
+
+    expect(lines.length).toBe(3);
+});
