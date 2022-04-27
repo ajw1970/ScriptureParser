@@ -1,3 +1,8 @@
+function formatScripture(quote) {
+    var data = parseScripture(quote);
+    return `${data[0]},"${data[1]} ${data[2]}:${data[3]}","${data[4]}"`;
+}
+
 function parseScripture(quote) {
     var data = {
         sortId: 0,
@@ -156,4 +161,4 @@ function getKjvBooks() {
         'Revelation'];
 };
 
-module.exports = { parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId };
+module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId };

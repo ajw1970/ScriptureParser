@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const { parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId } = require('./parseScripture');
+const { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId } = require('./parseScripture');
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
     expect(
@@ -92,4 +92,9 @@ Line 3`;
     var lines = text.split(/\r\n|\n/);
 
     expect(lines.length).toBe(3);
+});
+
+test('We can get formatted string from quoted verse', () => {
+    expect(formatScripture("1 John 1:1 This is the scripture"))
+        .toBe('62.001,"1 John 1:1","This is the scripture"');
 });
