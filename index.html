@@ -23,14 +23,22 @@
     <br>
     <textarea id="formattedQuotes" name="formattedQuotes" disabled rows="25" cols="130"></textarea>
 
-    <script>
+    <script src="./js/parseScripture.js" type="text/javascript"> </script>
+    <script type="text/javascript">
         const quotes = document.getElementById('quotes');
         const formattedQuotes = document.getElementById('formattedQuotes');
         const button = document.querySelector('button');
         button.addEventListener('click', event => {
             const message = `quoted text: [${quotes.value}]`;
             console.log(message);
-            formattedQuotes.innerText = message;
+            var quoteLines = quotes.value.split(/\r\n|\n/);
+            var output = '';
+            quoteLines.forEach(quote => {
+                if (quote && quote.trim().length > 0) {
+                    output += formatScripture(quote) + "\n";
+                }
+            });
+            formattedQuotes.value = output;
             formattedQuotes.removeAttribute('disabled');
         });
     </script>
