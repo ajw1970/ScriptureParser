@@ -49,6 +49,22 @@ test('We can parse out reference range', () => {
     );
 });
 
+test('We can parse out reference range for 2 verses', () => {
+    expect(
+        parseScripture("1 Timothy 2:3 For this is good and acceptable in the sight of God our Saviour; 2:4 Who will have all men to be saved, and to come unto the knowledge of the truth.")
+    ).toEqual(
+        expect.arrayContaining(
+            [
+                54.002,
+                "1 Timothy",
+                "2",
+                "3-4",
+                `3 For this is good and acceptable in the sight of God our Saviour;
+4 Who will have all men to be saved, and to come unto the knowledge of the truth.`
+            ])
+    );
+});
+
 test('We can identify quotes with multiple verses', () => {
     const sample = "Three 2:4 Four 2:5 Five 2:6 Six";
     expect(hasMultipleVerses(2, sample)).toBe(true);

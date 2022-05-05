@@ -59,7 +59,7 @@ function formatMultipleVerseQuote(chapter, firstVerse, quoteText) {
 function getVerseRange(chapter, firstVerse, quoteText) {
     const regExp = getChapterVerseRegExp(chapter);
     const matches = quoteText.match(regExp);
-    if (!matches || matches.length === 1) {
+    if (!matches) {
         return firstVerse;
     }
     const lastVerseWithChapter = matches[matches.length - 1];
