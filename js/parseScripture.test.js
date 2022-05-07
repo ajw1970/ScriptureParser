@@ -1,5 +1,5 @@
 const { describe, it, test, expect } = require('@jest/globals');
-const { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArryToString } = require('./parseScripture');
+const { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArrayToString } = require('./parseScripture');
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
     expect(
@@ -182,8 +182,8 @@ describe('reduceVerseListToVerseRangeArray', () => {
 describe('verseRangeArrayToString', () => {
 
     it('returns string representing verse range array', () => {
-        expect(verseRangeArryToString([[1, 2]])).toBe('1-2');
-        expect(verseRangeArryToString([[1, 3], 5])).toBe('1-3,5');
-        expect(verseRangeArryToString([[1, 3], 5, [7, 8]])).toBe('1-3,5,7-8');
+        expect(verseRangeArrayToString([[1, 2]])).toBe('1-2');
+        expect(verseRangeArrayToString([[1, 3], 5])).toBe('1-3,5');
+        expect(verseRangeArrayToString([[1, 3], 5, [7, 8]])).toBe('1-3,5,7-8');
     })
 })

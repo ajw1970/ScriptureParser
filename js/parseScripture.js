@@ -230,7 +230,7 @@ function reduceVerseListToVerseRangeArray(verses) {
     }
 }
 
-function verseRangeArryToString(arr) {
+function verseRangeArrayToString(arr) {
     return arr.reduce((prev, curr) => {
 
         if (prev.length > 0) {
@@ -245,4 +245,4 @@ function verseRangeArryToString(arr) {
     }, '');
 }
 
-module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArryToString };
+module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArrayToString };
