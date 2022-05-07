@@ -1,4 +1,4 @@
-const { test, expect } = require('@jest/globals');
+const { describe, it, test, expect } = require('@jest/globals');
 const { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId } = require('./parseScripture');
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
@@ -85,10 +85,23 @@ test('We can format multiple verse quotes', () => {
     expect(formatMultipleVerseQuote(2, 3, sample)).toBe(sampleFormatted);
 });
 
-test('We can get verse range from multiple verse quotes', () => {
-    const sample = "Three 2:4 Four 2:5 Five 2:6 Six";
-    expect(getVerseRange(2, 3, sample)).toBe('3-6');
-});
+describe('getVerseRange', () => {
+
+    it('can get verse range from multiple verse quotes', () => {
+        const sample = "Three 2:4 Four 2:5 Five 2:6 Six";
+        expect(getVerseRange(2, 3, sample)).toBe('3-6');
+    });
+
+    it('can parse non continuous verses into a verseRange reference', () => {
+
+        let sample = "2 Corinthians 11:2 For I am ... 11:4 For if he ... 11:5 For I suppose ... 11:7 Have I committed ...?";
+
+        let expected = "2,4-5,7";
+
+        expect(getVerseRange(11, 2, sample)).toBe(expected);
+
+    })
+})
 
 test('We can get book numbers', () => {
     expect(getBookNumber("Genesis")).toBe(1);
