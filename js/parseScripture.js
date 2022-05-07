@@ -58,13 +58,49 @@ function formatMultipleVerseQuote(chapter, firstVerse, quoteText) {
 
 function getVerseRange(chapter, firstVerse, quoteText) {
     const regExp = getChapterVerseRegExp(chapter);
-    const matches = quoteText.match(regExp);
-    if (!matches) {
+    const quotedChapterVerses = getChapterAndVerseReferences(quoteText, regExp);
+    if (!quotedChapterVerses) {
+        //there is just one verse quoted
         return firstVerse;
     }
-    const lastVerseWithChapter = matches[matches.length - 1];
+
+    const vNumArray = quotedChapterVerses.map(getVersNumFromChapterAndVerse);
+
+    /*
+        1,2,3,5,6,8
+
+        1-3,5-6,8
+    */
+
+    /* let inRange = false;
+    let previous = firstVerse;
+    let verseRange = `${previous}`;
+    vNumArray.shift();
+    vNumArray.forEach(current => {
+        if (current - previous === 1) {
+            if (inRange === false) {
+                //start range delimiter
+                verseRange += '-';
+            }
+            //capture new previous value
+            previous = current;
+        }
+    });
+    verseRange += vNumArray[vNumArray.length - 1];
+
+    return verseRange; */
+
+    const lastVerseWithChapter = quotedChapterVerses[quotedChapterVerses.length - 1];
     const lastVerse = lastVerseWithChapter.split(':')[1].trim();
     return `${firstVerse}-${lastVerse}`;
+
+    function getChapterAndVerseReferences(quoteText, regExp) {
+        return quoteText.match(regExp);
+    }
+
+    function getVersNumFromChapterAndVerse(match) {
+        return match.split(':')[1].trim();
+    }
 }
 
 function getBookNumber(book) {
@@ -161,4 +197,37 @@ function getKjvBooks() {
         'Revelation'];
 };
 
-module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId };
+function reduceVerseListToVerseRangeArray(verses) {
+    return verses.reduce((prevArray, currVal) => {
+        if (prevArray.length === 0) {
+            //Replace empty initial array
+            return [currVal];
+        }
+
+        let lastElem = lastElementOf(prevArray);
+
+        if (Array.isArray(lastElem)) {
+            let pval = lastElementOf(lastElem);
+            if (currVal - pval === 1) {
+                lastElem[1] = currVal;
+            } else {
+                prevArray.push(currVal);
+            }
+            return prevArray;
+        } else {
+            let pval = lastElem;
+            if (currVal - pval === 1) {
+                prevArray[prevArray.length - 1] = [lastElem, currVal];
+            } else {
+                prevArray.push(currVal);
+            }
+            return prevArray;
+        }
+    }, []);
+
+    function lastElementOf(arr) {
+        return arr[arr.length - 1];
+    }
+}
+
+module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray };

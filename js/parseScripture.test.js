@@ -1,5 +1,5 @@
 const { describe, it, test, expect } = require('@jest/globals');
-const { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId } = require('./parseScripture');
+const { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray } = require('./parseScripture');
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
     expect(
@@ -92,7 +92,7 @@ describe('getVerseRange', () => {
         expect(getVerseRange(2, 3, sample)).toBe('3-6');
     });
 
-    it('can parse non continuous verses into a verseRange reference', () => {
+    it.skip('can parse non continuous verses into a verseRange reference', () => {
 
         let sample = "2 Corinthians 11:2 For I am ... 11:4 For if he ... 11:5 For I suppose ... 11:7 Have I committed ...?";
 
@@ -162,4 +162,19 @@ test('We can parse csv text into an array', () => {
 
     expect(results.length).toBe(3);
 
+})
+
+describe('reduceVerseListToVerseRangeArray', () => {
+
+    it('returns "[[1,2]]" for [1,2]', () => {
+        expect(reduceVerseListToVerseRangeArray([1, 2])).toEqual(expect.arrayContaining([[1, 2]]));
+    })
+
+    it('returns "[[1,3]]" for [1,2,3]', () => {
+        expect(reduceVerseListToVerseRangeArray([1, 2, 3])).toEqual(expect.arrayContaining([[1, 3]]));
+    })
+
+    it('returns array of ranges and values describing list of chapter verse numbers', () => {
+        expect(reduceVerseListToVerseRangeArray([1, 2, 3, 5, 7, 8])).toEqual(expect.arrayContaining([[1, 3], 5, [7, 8]]));
+    })
 })
