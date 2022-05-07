@@ -230,4 +230,19 @@ function reduceVerseListToVerseRangeArray(verses) {
     }
 }
 
-module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray };
+function verseRangeArryToString(arr) {
+    return arr.reduce((prev, curr) => {
+
+        if (prev.length > 0) {
+            prev += ',';
+        }
+
+        if (Array.isArray(curr)) {
+            return prev += curr.join('-');
+        }
+
+        return prev += curr;
+    }, '');
+}
+
+module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArryToString };
