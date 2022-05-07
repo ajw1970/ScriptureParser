@@ -178,3 +178,27 @@ describe('reduceVerseListToVerseRangeArray', () => {
         expect(reduceVerseListToVerseRangeArray([1, 2, 3, 5, 7, 8])).toEqual(expect.arrayContaining([[1, 3], 5, [7, 8]]));
     })
 })
+
+describe('verseRangeArrayToString', () => {
+
+    function verseRangeArryToString(arr) {
+        return arr.reduce((prev, curr) => {
+
+            if (prev.length > 0) {
+                prev += ',';
+            }
+
+            if (Array.isArray(curr)) {
+                return prev += curr.join('-');
+            }
+
+            return prev += curr;
+        }, '');
+    }
+
+    it('returns string representing verse range array', () => {
+        expect(verseRangeArryToString([[1, 2]])).toBe('1-2');
+        expect(verseRangeArryToString([[1, 3], 5])).toBe('1-3,5');
+        expect(verseRangeArryToString([[1, 3], 5, [7, 8]])).toBe('1-3,5,7-8');
+    })
+})
