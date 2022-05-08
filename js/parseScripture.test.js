@@ -92,9 +92,9 @@ describe('getVerseRange', () => {
         expect(getVerseRange(2, 3, sample)).toBe('3-6');
     });
 
-    it.skip('can parse non continuous verses into a verseRange reference', () => {
+    it('can parse non continuous verses into a verseRange reference', () => {
 
-        let sample = "2 Corinthians 11:2 For I am ... 11:4 For if he ... 11:5 For I suppose ... 11:7 Have I committed ...?";
+        let sample = "For I am... 11:4 For if he ... 11:5 For I suppose ... 11:7 Have I committed ...?";
 
         let expected = "2,4-5,7";
 
