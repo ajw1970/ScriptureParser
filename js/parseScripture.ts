@@ -61,7 +61,7 @@ function getVerseRange(chapter, firstVerse, quoteText) {
     const quotedChapterVerses = getChapterAndVerseReferences(quoteText, regExp);
     if (!quotedChapterVerses) {
         //there is just one verse quoted
-        return firstVerse;
+        return firstVerse.toString();
     }
 
     const vNumArray = quotedChapterVerses.map(getVerseNumFromChapterAndVerse);
