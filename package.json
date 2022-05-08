@@ -4,6 +4,8 @@
   "description": "= Scripture Parser",
   "main": "index.js",
   "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
     "test": "jest --coverage"
   },
   "keywords": [],

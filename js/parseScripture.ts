@@ -1,9 +1,9 @@
-function formatScripture(quote) {
+export function formatScripture(quote) {
     var data = parseScripture(quote);
     return `${data[0]},"${data[1]} ${data[2]}:${data[3]}","${data[4]}"`;
 }
 
-function parseScripture(quote) {
+export function parseScripture(quote) {
     var data = {
         sortId: 0,
         book: "",
@@ -42,21 +42,21 @@ function parseScripture(quote) {
     return Object.values(data);
 }
 
-function getChapterVerseRegExp(chapter) {
+export function getChapterVerseRegExp(chapter) {
     return new RegExp(` ${chapter}:(\\d+) `, 'g');
 }
 
-function hasMultipleVerses(chapter, quoteText) {
+export function hasMultipleVerses(chapter, quoteText) {
     const regExp = getChapterVerseRegExp(chapter);
     return regExp.test(quoteText);
 }
 
-function formatMultipleVerseQuote(chapter, firstVerse, quoteText) {
+export function formatMultipleVerseQuote(chapter, firstVerse, quoteText) {
     const regExp = getChapterVerseRegExp(chapter);
     return `${firstVerse} ${quoteText.replace(regExp, '\n$1 ')}`;
 }
 
-function getVerseRange(chapter, firstVerse, quoteText) {
+export function getVerseRange(chapter, firstVerse, quoteText) {
     const regExp = getChapterVerseRegExp(chapter);
     const quotedChapterVerses = getChapterAndVerseReferences(quoteText, regExp);
     if (!quotedChapterVerses) {
@@ -78,7 +78,7 @@ function getVerseRange(chapter, firstVerse, quoteText) {
     }
 }
 
-function getBookNumber(book) {
+export function getBookNumber(book) {
     return getKjvBooks().indexOf(book) + 1;
 }
 
@@ -94,7 +94,7 @@ function getBookNumber(book) {
 
     The 4th digit is the number of digits of the first verse number - 1 
 */
-function getQuoteSortId(book, chapter, firstVerse) {
+export function getQuoteSortId(book, chapter, firstVerse) {
 
     const bookNumber = getBookNumber(book) * 10000;
     const chapterNumber = chapter * 10;
@@ -103,7 +103,7 @@ function getQuoteSortId(book, chapter, firstVerse) {
     return (bookNumber + chapterNumber + verseWeightNumber) / 10000;
 }
 
-function getKjvBooks() {
+export function getKjvBooks() {
     return ['Genesis',
         'Exodus',
         'Leviticus',
@@ -172,7 +172,7 @@ function getKjvBooks() {
         'Revelation'];
 };
 
-function reduceVerseListToVerseRangeArray(verses) {
+export function reduceVerseListToVerseRangeArray(verses) {
     return verses.reduce((prevArray, currVal) => {
         if (prevArray.length === 0) {
             //Replace empty initial array
@@ -205,7 +205,7 @@ function reduceVerseListToVerseRangeArray(verses) {
     }
 }
 
-function verseRangeArrayToString(arr) {
+export function verseRangeArrayToString(arr) {
     return arr.reduce((prev, curr) => {
 
         if (prev.length > 0) {
@@ -219,5 +219,3 @@ function verseRangeArrayToString(arr) {
         return prev += curr;
     }, '');
 }
-
-module.exports = { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArrayToString };
