@@ -1,4 +1,3 @@
-const { describe, it, test, expect } = require('@jest/globals');
 import { formatScripture, parseScripture, hasMultipleVerses, formatMultipleVerseQuote, getVerseRange, getBookNumber, getQuoteSortId, reduceVerseListToVerseRangeArray, verseRangeArrayToString } from './parseScripture';
 
 test('We can parse out reference from verse text for book chapter and verse', () => {
