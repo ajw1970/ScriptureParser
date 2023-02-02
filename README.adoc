@@ -22,3 +22,9 @@ the whole number is the book number from 1 (Genesis) to 66 (Revelation).
 The first 3 digits of the fraction are the chapter number divided by 1000. 
 
 The 4th digit is the number of digits of the first verse number minus 1 and then divided by 10000. 
+
+== Developer Notes
+
+Changes in html can be tested by running index.html in live view
+
+Changes in typescript require `npm run build`
