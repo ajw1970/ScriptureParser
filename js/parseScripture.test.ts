@@ -115,6 +115,7 @@ test('We can get sort id for quoted verse', () => {
     expect(getQuoteSortId("1 Timothy", 2, 3)).toBe(54.002);
     expect(getQuoteSortId("1 Timothy", 2, 12)).toBe(54.0021);
     expect(getQuoteSortId("Psalms", 119, 176)).toBe(19.1192);
+    expect(getQuoteSortId("Psalms", 110, 4)).toBe(19.110);
 });
 
 test('We can turn a block of text into lines', () => {
@@ -128,7 +129,7 @@ Line 3`;
 
 test('We can get formatted string from quoted verse', () => {
     expect(formatScripture("1 John 1:1 This is the scripture"))
-        .toBe('62.001,"1 John 1:1","This is the scripture"');
+        .toBe('62.0010,"1 John 1:1","This is the scripture"');
 });
 
 test('We can parse csv text into an array', () => {
@@ -190,3 +191,41 @@ describe('verseRangeArrayToString', () => {
         expect(verseRangeArrayToString([[1, 3], 5, [7, 8]])).toBe('1-3,5,7-8');
     })
 })
+
+//Reproducing problem found using front end
+test('We can handle Psalm 110v4 reference from verse text for book chapter and verse', () => {
+    expect(
+        parseScripture("Psalms 110:4 The LORD hath sworn, and will not repent, Thou art a priest for ever after the order of Melchizedek.")
+    ).toEqual(
+        expect.arrayContaining(
+            [
+                19.110,
+                "Psalms",
+                "110",
+                "4",
+                "The LORD hath sworn, and will not repent, Thou art a priest for ever after the order of Melchizedek."
+            ])
+    );
+});
+
+//Reproducing problem found using front end
+test('We can get formatted string from Psalm 110v4', () => {
+    expect(formatScripture("Psalms 110:4 The LORD hath sworn, and will not repent, Thou art a priest for ever after the order of Melchizedek."))
+        .toBe('19.1100,"Psalms 110:4","The LORD hath sworn, and will not repent, Thou art a priest for ever after the order of Melchizedek."');
+});
+
+//Reproducing problem found using front end
+test('We can handle Exodus 30v6 reference from verse text for book chapter and verse', () => {
+    expect(
+        parseScripture("Exodus 30:6 And thou shalt put it before the vail that is by the ark of the testimony, before the mercy seat that is over the testimony, where I will meet with thee.")
+    ).toEqual(
+        expect.arrayContaining(
+            [
+                2.030,
+                "Exodus",
+                "30",
+                "6",
+                "And thou shalt put it before the vail that is by the ark of the testimony, before the mercy seat that is over the testimony, where I will meet with thee."
+            ])
+    );
+});
