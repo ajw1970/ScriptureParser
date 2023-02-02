@@ -1,6 +1,7 @@
 export function formatScripture(quote) {
     var data = parseScripture(quote);
-    return `${data[0]},"${data[1]} ${data[2]}:${data[3]}","${data[4]}"`;
+    var sortId = data[0].toFixed(4);
+    return `${sortId},"${data[1]} ${data[2]}:${data[3]}","${data[4]}"`;
 }
 
 export function parseScripture(quote) {
@@ -99,7 +100,7 @@ export function getQuoteSortId(book, chapter, firstVerse) {
     const bookNumber = getBookNumber(book) * 10000;
     const chapterNumber = chapter * 10;
     const verseWeightNumber = firstVerse.toString().length - 1;
-
+    
     return (bookNumber + chapterNumber + verseWeightNumber) / 10000;
 }
 
