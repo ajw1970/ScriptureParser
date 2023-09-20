@@ -13,8 +13,11 @@ export function parseScripture(quote) {
         text: quote
     }
 
+    //Strip out double spaces
+    quote = quote.replace(/  /g, ' ');
+
     var match = quote.match(/^(?<book>.*?) (?<chapter>\d+):(?<firstVerse>\d+) (?<text>.*)$/);
-    
+
     switch (match.length) {
         case 5:
             const book = match.groups.book;
@@ -39,7 +42,7 @@ export function parseScripture(quote) {
             }
             break;
     }
-    
+
     return Object.values(data);
 }
 
@@ -100,7 +103,7 @@ export function getQuoteSortId(book, chapter, firstVerse) {
     const bookNumber = getBookNumber(book) * 10000;
     const chapterNumber = chapter * 10;
     const verseWeightNumber = firstVerse.toString().length - 1;
-    
+
     return (bookNumber + chapterNumber + verseWeightNumber) / 10000;
 }
 

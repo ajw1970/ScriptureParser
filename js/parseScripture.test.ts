@@ -15,6 +15,21 @@ test('We can parse out reference from verse text for book chapter and verse', ()
     );
 });
 
+test('We can parse out reference from verse text for book chapter and verse containing double spaces', () => {
+    expect(
+        parseScripture("Proverbs  12:17  He that speaketh truth sheweth forth righteousness: but a false witness deceit.")
+    ).toEqual(
+        expect.arrayContaining(
+            [
+                20.0121,
+                "Proverbs",
+                "12",
+                "17",
+                "He that speaketh truth sheweth forth righteousness: but a false witness deceit."
+            ])
+    );
+});
+
 test('We can parse out reference from verse text for numbered book', () => {
     expect(
         parseScripture("2 Kings 8:19 Yet the LORD would not destroy Judah for David his servant's sake, as he promised him to give him alway a light, and to his children.")
